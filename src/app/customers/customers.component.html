@@ -1,0 +1,41 @@
+<h1>Customer List</h1>
+
+<div class="alert alert-Red" role="alert">
+  Highlight 'Removed' customers in <strong>RED</strong>
+</div>
+<div class="alert alert-Orange" role="alert">
+  'Active' customers who have not placed any orders during the last 12 months in <strong>ORANGE</strong>
+</div>
+<div class="alert alert-Green" role="alert">
+  'Active' customers who have placed a minumum of AUD $200.00 in sales over the last 3 months in <strong>GREEN</strong> (check the 'OrderStatus' and make sure you are only including 'Completed' orders in this calculation)
+</div>
+
+<div class="table-responsive">
+    
+  <table class="table table-sm">
+    
+    <thead class="thead-dark">
+      <tr>
+        <th class="text-center">Customer Name</th>
+        <th class="text-center">Customer Status</th>
+        <th class="text-center">Total Order Count</th>
+        <th class="text-center">Total Order ($ AUD)</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let customer of customers">
+      <tr [className]="customer.CustomerType">
+        <td class="text-center">{{customer.Name}}</td>
+        <td class="text-center">{{customer.CustomerStatusName}}</td>
+        <td class="text-right">{{customer.OrderTotalCnt}}</td>
+        <td class="text-right">{{customer.OrderTotalSum | currency}}</td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="(customers | json) != ({} | json)">
+      <tr class="table-dark">
+        <th class="text-center" colspan="2"> Total</th>
+        <td class="text-right">{{orderTotalCnt}}</td>
+        <td class="text-right">{{orderTotalSum | currency }}</td>
+      </tr>
+    </tfoot>
+    </table>
+</div>
